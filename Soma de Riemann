@@ -1,0 +1,21 @@
+import math
+
+def derivada_diferencas_finitas(f, x, h=1e-5, tipo='centrada'):
+    if tipo == 'progressiva':
+        return (f(x + h) - f(x)) / h
+    elif tipo == 'regressiva':
+        return (f(x) - f(x - h)) / h
+    elif tipo == 'centrada':
+        return (f(x + h) - f(x - h)) / (2 * h)
+    else:
+        raise ValueError("Tipo inválido")
+
+def func(x):
+    return math.sin(x)  # exemplo: sin(x)
+
+x = math.pi / 4
+h = 0.0001
+
+resultado = derivada_diferencas_finitas(func, x, h, tipo='centrada')
+
+print(resultado)
