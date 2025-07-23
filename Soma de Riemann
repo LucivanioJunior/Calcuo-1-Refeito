@@ -1,21 +1,26 @@
+def soma_riemann(f, a, b, n, metodo='meio'):
+    largura = (b - a) / n
+    soma = 0.0
+    for i in range(n):
+        if metodo == 'esquerda':
+            x = a + i * largura
+        elif metodo == 'direita':
+            x = a + (i + 1) * largura
+        elif metodo == 'meio':
+            x = a + (i + 0.5) * largura
+        else:
+            raise ValueError("Método inválido")
+        soma += f(x)
+    return soma * largura
+
 import math
 
-def derivada_diferencas_finitas(f, x, h=1e-5, tipo='centrada'):
-    if tipo == 'progressiva':
-        return (f(x + h) - f(x)) / h
-    elif tipo == 'regressiva':
-        return (f(x) - f(x - h)) / h
-    elif tipo == 'centrada':
-        return (f(x + h) - f(x - h)) / (2 * h)
-    else:
-        raise ValueError("Tipo inválido")
+def funcao(x):
+    return math.sin(x)
 
-def func(x):
-    return math.sin(x)  # exemplo: sin(x)
+a = 0
+b = math.pi
+n = 1000
 
-x = math.pi / 4
-h = 0.0001
-
-resultado = derivada_diferencas_finitas(func, x, h, tipo='centrada')
-
+resultado = soma_riemann(funcao, a, b, n, metodo='meio')
 print(resultado)
